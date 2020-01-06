@@ -8,34 +8,31 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sil.ucubesdk.POJO.UCubeRequest;
+import com.sil.ucubesdk.StatusCallBack;
 import com.sil.ucubesdk.UCubeCallBacks;
 import com.sil.ucubesdk.UCubeManager;
 import com.sil.ucubesdk.payment.TransactionType;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String LICENSEY_KEY = "";
-
+    UCubeManager uCubeManager;
+    UCubeRequest uCubeRequest;
+    Button tranxBtn,statusBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                connectDevice();
-            }
-        });
 
-    }
+        tranxBtn = findViewById(R.id.transaction_button);
+        statusBtn = findViewById(R.id.status_button);
 
-    void connectDevice() {
-        UCubeManager uCubeManager = UCubeManager.getInstance(this, LICENSEY_KEY);
-        UCubeRequest uCubeRequest = new UCubeRequest();
+        uCubeManager = UCubeManager.getInstance(this, LICENSEY_KEY);
+
+        uCubeRequest = new UCubeRequest();
 
         uCubeRequest.setUsername("username");
         uCubeRequest.setPassword("password");
@@ -49,6 +46,21 @@ public class MainActivity extends AppCompatActivity {
         uCubeRequest.setBt_address("Bluetooth_Mac_Address"); //eg xx:yy:zz:aa
 
         uCubeRequest.setRequestCode(TransactionType.DEBIT);
+
+        tranxBtn.setOnClickListener(this);
+        statusBtn.setOnClickListener(this);
+        tranxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
+    void connectDevice() {
+
+        uCubeRequest.setTransactionId(uCubeManager.getTransactionId()); //you can have your own 12digit integer Id or create one using UCubeManager;
 
         uCubeManager.execute(uCubeRequest, new UCubeCallBacks() {
             @Override
@@ -64,6 +76,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void failureCallback(JSONObject jsonObject) {
                 Log.d(TAG, "failureCallback: " + jsonObject);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.transaction_button: connectDevice();break;
+            case R.id.status_button: checkStatus();break;
+        }
+    }
+
+    //Check status is applicable only for TransactionType.DEBIT and TransactionType.WITHDRAWAL
+    private void checkStatus() {
+
+        uCubeManager.checkStatus(uCubeRequest, new StatusCallBack() {
+            @Override
+            public void successCallback(JSONObject jsonObject) {
+                Log.d(TAG, "checkStatus successCallback: " + jsonObject);
+            }
+
+            @Override
+            public void failureCallback(JSONObject jsonObject) {
+                Log.d(TAG, "checkStatus failureCallback: " + jsonObject);
             }
         });
     }
