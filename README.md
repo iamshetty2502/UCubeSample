@@ -17,7 +17,7 @@ This is a sample app for UCube SDK.
   }
   ```
 ### Add the below dependencies in the project's build.gradle 
-    implementation 'com.sil.ucubesdk:ucubesdk:1.0.0'
+    implementation 'com.sil.ucubesdk:ucubesdk:1.0.2'
 e.g
 ```
     dependencies {
