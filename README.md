@@ -21,7 +21,7 @@ This is a sample app for UCube SDK.
 e.g
 ```
     dependencies {
-		implementation 'com.sil.ucubesdk:ucubesdk:1.0.0'
+		implementation 'com.sil.ucubesdk:ucubesdk:1.0.2'
 	}
  ```
 
@@ -48,6 +48,7 @@ UCubeManager uCubeManager = UCubeManager.getInstance(Context,License-key);
     uCubeRequest.setRefCompany(your_org_name);
     CubeRequest.setMid(Merchant_Id);
     uCubeRequest.setTid(Termianl_Id);
+    uCubeRequest.setTransactionId(Transaction_Id);
     uCubeRequest.setImei(Device_Imei);
     uCubeRequest.setImsi(Device_Imsi);
     uCubeRequest.setTxn_amount(amount);
@@ -60,10 +61,29 @@ Provided Transaction type are as follows:
     	TransactionType.WITHDRAWAL	: for amount withdrawal
     	TransactionType.DEBIT		: for sale by card.
 ```
+Transaction Id is your unique 12 digit Id. In case you dont have any such Unique Id , you can call the below method to generate the Unique Transaction Id.
+```
+uCubeManager.getTransactionId()
+```
 3. Once the Ucuberequest object is created and set proceed with the excecution.
 e.g 
 ```
-uCubeManager.execute(uCubeRequest,UCubeCallBacks); 
+	uCubeManager.execute(uCubeRequest,new UCubeCallBacks() {
+            @Override
+            public void successCallback(JSONObject jsonObject) {
+                
+            }
+
+            @Override
+            public void progressCallback(String s) {
+              
+            }
+
+            @Override
+            public void failureCallback(JSONObject jsonObject) {
+               
+            }
+        });
 ```
 4. UCubeCallBacks implement the method for success, failure and progress state.
 	
@@ -75,3 +95,19 @@ uCubeManager.execute(uCubeRequest,UCubeCallBacks);
 
  	iii. **public void progressCallback(String message)** <br>
  			The above method is called to show the message about the current status. This message can be displayed to the end-user refelcting the state of Ucube Device.
+5. The UCubeManager also provide service to check the status of your transaction. To check the transaction status use below method
+
+```
+     uCubeManager.checkStatus(uCubeRequest, new StatusCallBack() {
+            @Override
+            public void successCallback(JSONObject jsonObject) {
+              
+            }
+
+            @Override
+            public void failureCallback(JSONObject jsonObject) {
+            
+            }
+        });
+```
+note : Check status method is applicable only for transaction type TransactionType.WITHDRAWAL and/or TransactionType.DEBIT
