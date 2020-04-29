@@ -61,8 +61,8 @@ Provided Transaction type are as follows:
     	TransactionType.WITHDRAWAL	: for amount withdrawal
     	TransactionType.DEBIT		: for sale by card.
 ```
-Transaction Id is your unique 12 digit Id. In case you dont have any such Unique Id , you can call the below method to generate the Unique Transaction Id.
-Note: The Transaction Id is returned in the Response Callback as token.
+Transaction Id is your unique 12 digit Id. In case you dont have any such Unique Id , you can call the below method to generate the Unique Transaction Id.<br/>
+note: The Transaction Id is returned in the Response Callback as token.
 ```
 uCubeManager.getTransactionId()
 ```
