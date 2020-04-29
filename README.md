@@ -17,11 +17,11 @@ This is a sample app for UCube SDK.
   }
   ```
 ### Add the below dependencies in the project's build.gradle 
-    implementation 'com.sil.ucubesdk:ucubesdk:2.0.0'
+    implementation 'com.sil.ucubesdk:ucubesdk:2.0.1'
 e.g
 ```
     dependencies {
-		implementation 'com.sil.ucubesdk:ucubesdk:2.0.0'
+		implementation 'com.sil.ucubesdk:ucubesdk:2.0.1'
 	}
  ```
 
@@ -62,6 +62,7 @@ Provided Transaction type are as follows:
     	TransactionType.DEBIT		: for sale by card.
 ```
 Transaction Id is your unique 12 digit Id. In case you dont have any such Unique Id , you can call the below method to generate the Unique Transaction Id.
+Note: The Transaction Id is returned in the Response Callback as token.
 ```
 uCubeManager.getTransactionId()
 ```
