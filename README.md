@@ -17,11 +17,11 @@ This is a sample app for UCube SDK.
   }
   ```
 ### Add the below dependencies in the project's build.gradle 
-    implementation 'com.sil.ucubesdk:ucubesdk:2.0.3'
+    implementation 'com.sil.ucubesdk:ucubesdk:2.0.5'
 e.g
 ```
     dependencies {
-		implementation 'com.sil.ucubesdk:ucubesdk:2.0.3'
+		implementation 'com.sil.ucubesdk:ucubesdk:2.0.5'
 	}
  ```
 
@@ -112,3 +112,25 @@ e.g
         });
 ```
 note : Check status method is applicable only for transaction type TransactionType.WITHDRAWAL and/or TransactionType.DEBIT
+
+6. Response Code 
+```
+00:  SUCCESS 
+100: FAILURE
+101 : DEVICE DISCONNECTED
+102: BLUETOOTH DISCONNECTED
+103: CARD WAIT FAILED
+104: TRANSACTION CANCELLED 
+105: TIMED OUT
+106: REFUSED CARD
+107: REVERSAL
+109: UNKOWN 
+
+201: PACKAGE NAME ERROR
+202: REQUEST CODE ERROR( IN CASE ANY REQUEST PARAMS ARE MISSING)
+203: CONTEXT IS NULL
+204: IF LICENSE KEY IS NULL
+205: INVALID PROJECT (LICENSE KEY MISMATCH)
+206: TRANSACTION ID MISSING 
+
+```
