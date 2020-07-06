@@ -17,11 +17,11 @@ This is a sample app for UCube SDK.
   }
   ```
 ### Add the below dependencies in the project's build.gradle 
-    implementation 'com.sil.ucubesdk:ucubesdk:2.0.6'
+    implementation 'com.sil.ucubesdk:ucubesdk:2.0.7'
 e.g
 ```
     dependencies {
-		implementation 'com.sil.ucubesdk:ucubesdk:2.0.6'
+		implementation 'com.sil.ucubesdk:ucubesdk:2.0.7'
 	}
  ```
 
@@ -132,5 +132,5 @@ note : Check status method is applicable only for transaction type TransactionTy
 204: IF LICENSE KEY IS NULL
 205: INVALID PROJECT (LICENSE KEY MISMATCH)
 206: TRANSACTION ID MISSING 
-
+207: NETWORK FAILURE
 ```
