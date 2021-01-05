@@ -165,7 +165,7 @@ note : Check status method is applicable only for transaction type TransactionTy
                                   })
 ```
 
-7. UCubeVoidCallBacks implement the method for success, failure and progress state.
+8. UCubeVoidCallBacks implement the method for success, failure and progress state.
 
 	i. 	**public void successCallback(JSONObject jsonObject);** <br>
 			The above method is called when the void is success.
