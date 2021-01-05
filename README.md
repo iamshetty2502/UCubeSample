@@ -134,3 +134,46 @@ note : Check status method is applicable only for transaction type TransactionTy
 206: TRANSACTION ID MISSING 
 207: NETWORK FAILURE
 ```
+
+7. The UCubeManager provide service to Void your Sale transaction.All you need is to set the UCubeRequest values and send to voidTransaction Method. And all the fields are mandatory
+ To void the transaction use below method:
+
+```
+  UCubeRequest uCubeRequest = new UCubeRequest();
+                uCubeRequest.setUsername("USERNAME");
+                uCubeRequest.setTxn_amount("TRANSACTION_AMOUNT");
+                uCubeRequest.setImei("IMEI");
+                uCubeRequest.setImsi("IMSI");
+                uCubeRequest.setMid("MERCHANT_ID");
+                uCubeRequest.setTid("TERMINAL_ID");
+                uCubeRequest.setTransactionId(transactionId); // Transaction Id of Sale By Card Transaction that you want to VOID
+                uCubeRequest.setRefCompany("COMPANYNAME");
+                uCubeRequest.setPassword("PASSWORD");
+
+     uCubeManager.voidTransaction(uCubeRequest, new UCubeVoidCallBacks() {
+                                      @Override
+                                      public void successCallback(JSONObject responseSuccess) {
+                                      }
+
+                                      @Override
+                                      public void progressCallback(String message) {
+                                      }
+
+                                      @Override
+                                      public void failureCallback(JSONObject responseFailure) {
+                                      }
+                                  })
+```
+
+7. UCubeVoidCallBacks implement the method for success, failure and progress state.
+
+	i. 	**public void successCallback(JSONObject jsonObject);** <br>
+			The above method is called when the void is success.
+
+ 	ii. **public void failureCallback(JSONObject jsonObject);** <br>
+ 			The above method is called when the void is failed due to some issues.
+
+ 	iii. **public void progressCallback(String message)** <br>
+ 			The above method is called to show the message about the current status. This message can be displayed to the end-user reflecting the state of progress.
+
+note : voidTransaction method is applicable only for transaction type TransactionType.DEBIT i.e Sale By Card and will work for the same day. Total Amount will be refunded( Partial Refund is not allowed).
